@@ -105,3 +105,153 @@ a {
     color-scheme: dark;
   }
 }
+
+/* 自設的pi-main.css start*/
+/* Custom styles */
+
+/* 文字粗細 */
+h1, h2, h3, h4, h5, p {
+  font-weight: 900;
+  margin: 0;
+}
+
+/* 文字顏色 */
+.text-color {
+  color: #515151;
+}
+
+/* 配色 */
+.own-blue{
+  color: #4CB1C8;
+}
+
+.own-green {
+  color: #94BF5C;
+}
+
+.own-li-green {
+  color: #CFE7B1;
+}
+
+.own-orange {
+  color: #CA5C3D;
+}
+
+.own-li-orange {
+  color: #F69A30;
+}
+
+.own-yellow {
+  color: #FFF5CF;
+}
+
+.own-main-yellow {
+  color: #F6D554;
+}
+
+.own-li-grey {
+  color: #C8C8C8;
+}
+
+/* 背景圖片 */
+.bg-image {
+    background-image: url('/pic/bg-img01.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+/* 按鈕1 */
+.own-btn1{
+  border-radius: 2.1875rem;
+  background-color: #A2E5F8;
+  color: #515151;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  width: 9.375rem;
+  height: 3.125rem;
+  border: 0;
+}
+
+.own-btn2{
+  border-radius: 2.1875rem;
+  background-color: #F6D554;
+  color: #515151;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  width: 18.75rem;
+  height: 3.125rem;  
+}
+
+.own-btn3 {
+  border-radius: 1.25rem;
+  background-color: white;
+  border: 1px solid #F69A30;
+  color: #515151;
+  font-size: 2rem;
+  font-weight: 900;
+  white-space: nowrap;
+  width: 15.625rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 5px; 
+  cursor: pointer;
+}
+.own-btn3:hover {
+  background-color: #f0f0f0; /* 懸停效果 */
+}
+.btn-check:checked + .own-btn3 {
+  background-color: #F69A30;
+  color: white;
+  border-color: #F69A30;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.own-btn4 {
+  border-radius: 1.25rem;
+  background-color: #F69A30;
+  border: 1px solid #F69A30;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+  width: 9.375rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 5px; 
+  cursor: pointer;
+  
+}
+
+/* radio btn樣式 */
+.form-check-input {
+  width: 25px;
+  height: 25px;
+}
+
+/* 資料填選框 */
+.sheet-input {
+  border: .0625rem solid #B7B7B7;
+  border-radius: 1.25rem;
+  width: 100%;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6F6F6F;
+}
+
+
+/* 自設的pi-main.css end */
+

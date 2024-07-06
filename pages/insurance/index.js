@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '@/component/layout/layout'
+import styles from './pi-index.module.css'
 
 
 export default function PetInsurance() {

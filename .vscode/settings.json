@@ -1,7 +1,14 @@
 {
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#2D2F1D",
-    "titleBar.activeBackground": "#3F4229",
-    "titleBar.activeForeground": "#FAFBF8"
-  }
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#013bad",
+        "titleBar.activeBackground": "#013bad",
+        "titleBar.activeForeground": "#FBFAFA"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.configPath": ".prettierrc.json",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [
+        "source.formatDocument",
+        "source.fixAll.eslint"
+    ]
 }

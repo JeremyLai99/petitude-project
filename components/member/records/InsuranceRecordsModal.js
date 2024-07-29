@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '@/styles/member/insurance.module.css'
 import { products } from '@/components/insurance/insurance_product'
-// import { counties } from '../common/county'
-// import { cities } from '../common/city'
-
-// const [holderCounty, setHolderCounty] = useState('')
-// const [holderCity, setHolderCity] = useState('')
-
-// const countyData = counties.find((county) => county.label === holderCounty)
-// const cityData = cities.find((city) => city.label === holderCity)
+import { counties } from '@/components/common/county'
+import { cities } from '@/components/common/city'
 
 const InsuranceRecordsModal = ({
   modalVisible,
@@ -16,6 +10,9 @@ const InsuranceRecordsModal = ({
   modalType,
   selectedRecord,
 }) => {
+  const [holderCounty, setHolderCounty] = useState('')
+  const [holderCity, setHolderCity] = useState('')
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
     return new Date(dateString).toLocaleDateString('zh-TW', options)
@@ -36,6 +33,31 @@ const InsuranceRecordsModal = ({
   const getInsuranceProductDetails = (productId) => {
     return products.find((product) => product.id === productId) || {}
   }
+
+  useEffect(() => {
+    if (selectedRecord) {
+      const getLocationName = (id, list) => {
+        const stringId = id.toString()
+        const item = list.find((i) => i.value === stringId)
+        return item ? item.label : '未知'
+      }
+
+      const newCounty = getLocationName(selectedRecord.fk_county_id, counties)
+      const newCity = getLocationName(selectedRecord.fk_city_id, cities)
+
+      if (newCounty !== holderCounty) {
+        setHolderCounty(newCounty)
+      }
+      if (newCity !== holderCity) {
+        setHolderCity(newCity)
+      }
+    } else {
+      if (holderCounty !== '' || holderCity !== '') {
+        setHolderCounty('')
+        setHolderCity('')
+      }
+    }
+  }, [selectedRecord, holderCounty, holderCity])
 
   if (!modalVisible || !selectedRecord) return null
 
@@ -76,7 +98,7 @@ const InsuranceRecordsModal = ({
                 )}
                 {renderDataRow(
                   '通訊地址',
-                  selectedRecord.policyholder_address,
+                  `${holderCounty}${holderCity}${selectedRecord.policyholder_address}`,
                   'text-start',
                   'text-start',
                 )}

@@ -85,7 +85,7 @@ export default function PetSick() {
           // 電腦版
           <div
             className={`row ${styles.forDeskTop}`}
-            style={{ padding: '0 60px' }}
+            style={{ paddingRight: '60px', paddingLeft: '60px' }}
           >
             <div
               className="col-lg-4 d-flex align-items-center justify-content-end"
@@ -93,7 +93,7 @@ export default function PetSick() {
             >
               <div
                 className={`col-9 ${styles['stats-container']} text-center`}
-                style={{ padding: '1.25rem 3.125rem', width: '100%' }}
+                style={{ padding: '1.25rem 3.125rem', width: '70%' }}
               >
                 <h4 style={{ fontWeight: '700' }} className={styles.allFont}>
                   {displayedAccident.accidentType}
@@ -222,7 +222,7 @@ export default function PetSick() {
             <img
               className="w-100 h-100"
               loading="lazy"
-              src="/pi-pic/section2-bottom-bar2.png"
+              src="/pi-pic/section2-bottom-bar3.png"
               alt=""
             />
           </div>

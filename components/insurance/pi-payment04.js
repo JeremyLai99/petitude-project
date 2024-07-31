@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { INSURANCE_GET_ITEM } from '@/configs/insurance/api-path'
+import Head from 'next/head'
 
 export default function PiPayment04() {
-  // 選擇付費方式
-  // const [selectedPayment, setSelectedPayment] = useState('')
-
   const router = useRouter()
   // 從url抓取orderId
   const { OrderId } = router.query
@@ -89,27 +87,54 @@ export default function PiPayment04() {
   //   }
   // }
 
+  // 綠界新視窗處理
+
+  const ws = useRef(null)
+
+  useEffect(() => {
+    ws.current = new WebSocket('ws://localhost:3001')
+
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      if (data.success) {
+        if (iframeRef.current) {
+          document.body.removeChild(iframeRef.current)
+        }
+        window.location.href =
+          'http://localhost:3000/insurance/insurance-payment05'
+      }
+    }
+
+    return () => {
+      if (ws.current) {
+        ws.current.close()
+      }
+    }
+  }, [])
+
+  const iframeRef = useRef(null)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
-      if (OrderId) {
-        const response = await fetch(
-          `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price })}`,
-        )
+      const response = await fetch(
+        `http://localhost:3001/ecpay/payment/${OrderId}?amount=${price}`,
+      )
 
-        const ecpayResponse = await response.json()
+      const ecpayResponse = await response.json()
 
-        if (ecpayResponse.htmlContent) {
-          // 創建一個新的窗口或標籤頁來加載和提交表單
-          const newWindow = window.open('', '_blank')
-          newWindow.document.write(ecpayResponse.htmlContent)
-          newWindow.document.close()
-        } else {
-          console.error('無效的回應格式')
-        }
+      if (ecpayResponse.htmlContent) {
+        const iframe = document.createElement('iframe')
+        iframe.srcdoc = ecpayResponse.htmlContent
+        iframe.style.width = '100%'
+        iframe.style.height = '600px'
+        iframeRef.current = iframe
+        document.body.appendChild(iframe)
+
+        ws.current.send(JSON.stringify({ type: 'init', orderId: OrderId }))
       } else {
-        console.error('新增資料庫失敗')
+        console.error('無效的回應格式')
       }
     } catch (error) {
       console.error('發生錯誤:', error)
@@ -139,6 +164,9 @@ export default function PiPayment04() {
   }, [OrderId])
   return (
     <>
+      <Head>
+        <title>請款頁 | Petitude</title>
+      </Head>
       <div className={`container-fluid mb-5 ${styles.allFont}`}>
         <div className="row justify-content-center">
           {/* 請款資訊 */}

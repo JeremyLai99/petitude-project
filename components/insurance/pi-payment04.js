@@ -1,18 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { INSURANCE_GET_ITEM } from '@/configs/insurance/api-path'
-import Head from 'next/head'
 
 export default function PiPayment04() {
   const router = useRouter()
   // 從url抓取orderId
   const { OrderId } = router.query
-
-  // 抓取新訂單id
-  // const [orderID, setOrderID] = useState('')
 
   // 抓取保費
   const [planPrice, setPlanPrice] = useState('')
@@ -20,13 +16,78 @@ export default function PiPayment04() {
   const price = parseFloat(planPrice.replace(/,/g, ''))
 
   // 綠界付款
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      // 確認localstorage有收到新成立的訂單編號 (綠界必須用get)
+
+      // 用從 URL 獲取的 orderId
+      if (OrderId) {
+        const response = await fetch(
+          `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price })}`,
+        )
+
+        const ecpayResponse = await response.json()
+
+        if (ecpayResponse.htmlContent) {
+          // 方式一
+          const tempDiv = document.createElement('div')
+          tempDiv.innerHTML = ecpayResponse.htmlContent
+
+          const form = tempDiv.querySelector('form')
+          if (form) {
+            document.body.appendChild(form)
+            form.submit()
+            // 再把訂單號碼加入localstorage
+            localStorage.setItem(
+              'OrderId',
+              JSON.stringify({ OrderId: OrderId }),
+            )
+          } else {
+            console.error('找不到支付表單')
+          }
+
+          // 方式二
+          //         // 創建一個臨時的iframe
+          //         const iframe = document.createElement('iframe')
+          //         iframe.style.display = 'none'
+          //         document.body.appendChild(iframe)
+
+          //         // 將HTML內容寫入iframe
+          //         iframe.contentWindow.document.open()
+          //         iframe.contentWindow.document.write(ecpayResponse.htmlContent)
+          //         iframe.contentWindow.document.close()
+
+          //         // 提交表單
+          //         const form = iframe.contentWindow.document.querySelector('form')
+          //         if (form) {
+          //           form.submit()
+          //           // 再把訂單號碼加入localstorage
+          //           localStorage.setItem(
+          //             'OrderId',
+          //             JSON.stringify({ OrderId: OrderId }),
+          //           )
+          //         } else {
+          //           console.error('找不到支付表單')
+          //         }
+        } else {
+          console.error('無效的回應格式')
+        }
+      } else {
+        console.error('新增資料庫失敗')
+      }
+    } catch (error) {
+      console.error('發生錯誤:', error)
+      // 處理錯誤
+    }
+  }
+
+  // 嘗試解決方法之一
   // const handleSubmit = async (e) => {
   //   e.preventDefault()
 
   //   try {
-  //     // 確認localstorage有收到新成立的訂單編號 (綠界必須用get)
-
-  //     // 用從 URL 獲取的 orderId
   //     if (OrderId) {
   //       const response = await fetch(
   //         `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price })}`,
@@ -35,46 +96,10 @@ export default function PiPayment04() {
   //       const ecpayResponse = await response.json()
 
   //       if (ecpayResponse.htmlContent) {
-  // 方式一
-  //         // const tempDiv = document.createElement('div')
-  //         // tempDiv.innerHTML = ecpayResponse.htmlContent
-
-  //         // const form = tempDiv.querySelector('form')
-  //         // if (form) {
-  //         //   document.body.appendChild(form)
-  //         //   form.submit()
-  //         //   // 再把訂單號碼加入localstorage
-  //         //   localStorage.setItem(
-  //         //     'OrderId',
-  //         //     JSON.stringify({ OrderId: OrderId }),
-  //         //   )
-  //         // } else {
-  //         //   console.error('找不到支付表單')
-  //         // }
-
-  //方式二
-  //         // 創建一個臨時的iframe
-  //         const iframe = document.createElement('iframe')
-  //         iframe.style.display = 'none'
-  //         document.body.appendChild(iframe)
-
-  //         // 將HTML內容寫入iframe
-  //         iframe.contentWindow.document.open()
-  //         iframe.contentWindow.document.write(ecpayResponse.htmlContent)
-  //         iframe.contentWindow.document.close()
-
-  //         // 提交表單
-  //         const form = iframe.contentWindow.document.querySelector('form')
-  //         if (form) {
-  //           form.submit()
-  //           // 再把訂單號碼加入localstorage
-  //           localStorage.setItem(
-  //             'OrderId',
-  //             JSON.stringify({ OrderId: OrderId }),
-  //           )
-  //         } else {
-  //           console.error('找不到支付表單')
-  //         }
+  //         // 創建一個新的窗口或標籤頁來加載和提交表單
+  //         const newWindow = window.open('', '_blank')
+  //         newWindow.document.write(ecpayResponse.htmlContent)
+  //         newWindow.document.close()
   //       } else {
   //         console.error('無效的回應格式')
   //       }
@@ -83,63 +108,8 @@ export default function PiPayment04() {
   //     }
   //   } catch (error) {
   //     console.error('發生錯誤:', error)
-  //     // 處理錯誤
   //   }
   // }
-
-  // 綠界新視窗處理
-
-  const ws = useRef(null)
-
-  useEffect(() => {
-    ws.current = new WebSocket('ws://localhost:3001')
-
-    ws.current.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      if (data.success) {
-        if (iframeRef.current) {
-          document.body.removeChild(iframeRef.current)
-        }
-        window.location.href =
-          'http://localhost:3000/insurance/insurance-payment05'
-      }
-    }
-
-    return () => {
-      if (ws.current) {
-        ws.current.close()
-      }
-    }
-  }, [])
-
-  const iframeRef = useRef(null)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    try {
-      const response = await fetch(
-        `http://localhost:3001/ecpay/payment/${OrderId}?amount=${price}`,
-      )
-
-      const ecpayResponse = await response.json()
-
-      if (ecpayResponse.htmlContent) {
-        const iframe = document.createElement('iframe')
-        iframe.srcdoc = ecpayResponse.htmlContent
-        iframe.style.width = '100%'
-        iframe.style.height = '600px'
-        iframeRef.current = iframe
-        document.body.appendChild(iframe)
-
-        ws.current.send(JSON.stringify({ type: 'init', orderId: OrderId }))
-      } else {
-        console.error('無效的回應格式')
-      }
-    } catch (error) {
-      console.error('發生錯誤:', error)
-    }
-  }
 
   // 從後端抓訂單id跟保險價格
   useEffect(() => {
@@ -164,9 +134,6 @@ export default function PiPayment04() {
   }, [OrderId])
   return (
     <>
-      <Head>
-        <title>請款頁 | Petitude</title>
-      </Head>
       <div className={`container-fluid mb-5 ${styles.allFont}`}>
         <div className="row justify-content-center">
           {/* 請款資訊 */}

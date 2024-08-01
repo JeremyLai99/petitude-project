@@ -19,8 +19,15 @@
 }
 
 .btnHover:hover {
-  background-color: #f6d554;
-  border: 1px solid #f6d554;
+  background-color: #ffffff ;
+  border: 1px solid #f6d554 ;
+  color: #f6d554;
+}
+
+.ActiveCategory {
+  background-color: #f6d554 !important;
+  border: 1px solid #f6d554 !important;
+  color: #ffffff !important;
 }
 
 .goTopBtn {
@@ -53,6 +60,13 @@
 
 .cardStyle{
   border-radius: 30px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cardStyle:hover{
+  transform: scale(1.05); /* 放大效果 */
+  /* transform: translateY(-10px); */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .pagination,

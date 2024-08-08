@@ -297,7 +297,7 @@ button.name3 {
     font-size: 14px;
     color: #6a513d;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin: 0%;
     font-weight: 900;

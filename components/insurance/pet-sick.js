@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 
+import dynamic from 'next/dynamic'
+
+// // 將 MasonryResponsive 僅在客戶端加載
+// const MasonryResponsive = dynamic(() => import('react-responsive-masonry'), {
+//   ssr: false,
+// })
+
 export default function PetSick() {
   //  手機板出現判斷
   const [isMobile, setIsMobile] = useState(false)
@@ -67,6 +74,7 @@ export default function PetSick() {
 
   return (
     <>
+      {/* <MasonryResponsive> */}
       <div className={` container-fluid ${styles.allFont}`}>
         <div className="row">
           <div className={`col-12 px-0 ${styles.barHight}`}>
@@ -234,6 +242,7 @@ export default function PetSick() {
           </div>
         </div>
       </div>
+      {/* </MasonryResponsive> */}
     </>
   )
 }

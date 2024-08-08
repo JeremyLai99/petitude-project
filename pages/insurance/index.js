@@ -10,6 +10,11 @@ import ImageCarousel from '@/components/insurance/image-carousel'
 import ScrollToTopButton from '@/components/common/scrollToTop'
 import CartIcon from '@/components/estore/carticon'
 
+// import dynamic from 'next/dynamic';
+
+// // 將 MasonryResponsive 僅在客戶端加載
+// const MasonryResponsive = dynamic(() => import('react-responsive-masonry'), { ssr: false });
+
 export default function PetInsurance() {
   // 確認是否有收到試算的表單資料
   const [catDataReceived, setCatDataReceived] = useState(false)
@@ -48,6 +53,7 @@ export default function PetInsurance() {
 
   return (
     <>
+      {/* <MasonryResponsive> */}
       <Layout title="寵度寵物保險" pageName="pet-insurance">
         {/* 回到最上面按鈕 */}
         <ScrollToTopButton />
@@ -93,10 +99,10 @@ export default function PetInsurance() {
               <div style={{ width: '100%', marginBottom: '20px' }}>
                 <ImageCarousel />
               </div>
-              
+
               <h5
                 className={styles['text-color']}
-                style={{marginTop: '30px'}}
+                style={{ marginTop: '30px' }}
               >
                 我們的團隊由保險業的專家組成，同時也是熱愛飼養多隻寵物的飼主。對我們來說，寵物一直是我們的家人。選擇我們的寵物保險服務，讓您的毛孩子擁有專屬的健康守護者，讓您與您的愛寵都能享有最貼心、最專業的保障。
               </h5>
@@ -137,8 +143,13 @@ export default function PetInsurance() {
         {/* section 2 end */}
 
         {/* section 3 優點介紹 start */}
-        <div className={`container-fluid ${styles['bg-image']} ${styles.allFont}`}>
-          <div className="row justify-content-center" style={{ padding: '0 60px' }}>
+        <div
+          className={`container-fluid ${styles['bg-image']} ${styles.allFont}`}
+        >
+          <div
+            className="row justify-content-center"
+            style={{ padding: '0 60px' }}
+          >
             <div className="col-11 d-flex justify-content-center">
               <ul
                 className={` list-unstyled d-inline-flex justify-content-between ${styles.advantageHeight}`}
@@ -152,7 +163,9 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
+                  <h5
+                    className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}
+                  >
                     保障全面
                   </h5>
                   <p
@@ -170,7 +183,9 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
+                  <h5
+                    className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}
+                  >
                     理賠快速
                   </h5>
                   <p
@@ -188,7 +203,9 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
+                  <h5
+                    className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}
+                  >
                     方案靈活
                   </h5>
                   <p
@@ -206,7 +223,9 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
+                  <h5
+                    className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}
+                  >
                     專業客服
                   </h5>
                   <p
@@ -272,8 +291,10 @@ export default function PetInsurance() {
         {/* section 4 end */}
 
         {/* section 5 顧客意見回饋 start */}
-        <div className={`container-fluid ${styles.allFont}`}
-        style={{marginTop: '100px'}}>
+        <div
+          className={`container-fluid ${styles.allFont}`}
+          style={{ marginTop: '100px' }}
+        >
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2
@@ -285,24 +306,35 @@ export default function PetInsurance() {
             </div>
           </div>
           <div className={`container-fluid mt-5 ${styles.allFont}`}>
-           {/* 電腦版 start */}
+            {/* 電腦版 start */}
             <div className={`container ${styles.feedbackLap}`}>
-              <div className="row d-flex flex-sm-column flex-md-row justify-content-center mt-5" style={{ padding: '0 3.75rem' }}>
+              <div
+                className="row d-flex flex-sm-column flex-md-row justify-content-center mt-5"
+                style={{ padding: '0 3.75rem' }}
+              >
                 <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
                       <div className={styles['pet-image-container']}>
-                        <img src="/pi-pic/customer-feedback01.jpg" className={styles['pet-image']} />
-                      </div>                      
+                        <img
+                          src="/pi-pic/customer-feedback01.jpg"
+                          className={styles['pet-image']}
+                        />
+                      </div>
                       <div className={styles.feedbackCardContent}>
-                        <h4 style={{marginBottom: '20px'}}>巨石(鬥牛犬) 1歲</h4>
+                        <h4 style={{ marginBottom: '20px' }}>
+                          巨石(鬥牛犬) 1歲
+                        </h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 廖先生
-                      </h4>
-                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
+                      <h4 className="text-start">主人: 廖先生</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '15px', paddingLeft: '15px' }}
+                      >
                         雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
                       </h6>
                     </div>
@@ -310,61 +342,85 @@ export default function PetInsurance() {
                 </div>
 
                 <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                    <div className={styles['pet-image-container']}>
-                        <img src="/pi-pic/customer-feedback02.jpg" className={styles['pet-image']} />
-                      </div> 
+                      <div className={styles['pet-image-container']}>
+                        <img
+                          src="/pi-pic/customer-feedback02.jpg"
+                          className={styles['pet-image']}
+                        />
+                      </div>
                       <div className={styles.feedbackCardContent}>
-                        <h4 style={{marginBottom: '20px'}}>米亞(虎斑貓) 3歲</h4>
+                        <h4 style={{ marginBottom: '20px' }}>
+                          米亞(虎斑貓) 3歲
+                        </h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 高小姐
-                      </h4>
-                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
+                      <h4 className="text-start">主人: 高小姐</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '15px', paddingLeft: '15px' }}
+                      >
                         我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
                       </h6>
                     </div>
                   </div>
                 </div>
                 <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                    <div className={styles['pet-image-container']}>
-                        <img src="/pi-pic/customer-feedback04.jpg"  className={styles['pet-image']} />
-                      </div> 
+                      <div className={styles['pet-image-container']}>
+                        <img
+                          src="/pi-pic/customer-feedback04.jpg"
+                          className={styles['pet-image']}
+                        />
+                      </div>
                       <div className={styles.feedbackCardContent}>
-                        <h4 style={{marginBottom: '20px'}}>阿卡斐雅(馬爾濟斯) 3歲</h4>
+                        <h4 style={{ marginBottom: '20px' }}>
+                          阿卡斐雅(馬爾濟斯) 3歲
+                        </h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 徐小姐
-                      </h4>
-                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
-                      買了寵物保險後，我再也不用擔心狗狗突發的醫療費用，讓牠得到最好的照顧，真的很安心。
+                      <h4 className="text-start">主人: 徐小姐</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '15px', paddingLeft: '15px' }}
+                      >
+                        買了寵物保險後，我再也不用擔心狗狗突發的醫療費用，讓牠得到最好的照顧，真的很安心。
                       </h6>
                     </div>
                   </div>
                 </div>
                 <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                    <div className={styles['pet-image-container']}>
-                        <img src="/pi-pic/customer-feedback03.png"  className={styles['pet-image']} />
-                      </div> 
+                      <div className={styles['pet-image-container']}>
+                        <img
+                          src="/pi-pic/customer-feedback03.png"
+                          className={styles['pet-image']}
+                        />
+                      </div>
                       <div className={styles.feedbackCardContent}>
-                        <h4 style={{marginBottom: '20px'}}>咪咪(英國短毛貓) 6個月</h4>
+                        <h4 style={{ marginBottom: '20px' }}>
+                          咪咪(英國短毛貓) 6個月
+                        </h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 蔡先生
-                      </h4>
-                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
-                      有了寵物保險，每次帶貓咪去看病都不再擔心費用，讓我更專注於牠的健康，真是個明智的投資。
+                      <h4 className="text-start">主人: 蔡先生</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '15px', paddingLeft: '15px' }}
+                      >
+                        有了寵物保險，每次帶貓咪去看病都不再擔心費用，讓我更專注於牠的健康，真是個明智的投資。
                       </h6>
                     </div>
                   </div>
@@ -375,21 +431,30 @@ export default function PetInsurance() {
 
             {/* 手機版 start */}
             <div className={`container ${styles.feedbackPhone}`}>
-              <div className="row d-flex flex-column justify-content-center mt-5" style={{ padding: '0 3.75rem' }}>
+              <div
+                className="row d-flex flex-column justify-content-center mt-5"
+                style={{ padding: '0 3.75rem' }}
+              >
                 <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                      <img src="/pi-pic/customer-feedback01.jpg" alt="巨石(鬥牛犬)" className={styles['pet-image']} />
+                      <img
+                        src="/pi-pic/customer-feedback01.jpg"
+                        alt="巨石(鬥牛犬)"
+                        className={styles['pet-image']}
+                      />
                       <div className={styles.feedbackCardContent}>
                         <h4>巨石(鬥牛犬) 1歲</h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 廖先生
-                      </h4>
-                      <h6 className="text-start"
-                      style={{paddingRight:'10px', paddingLeft: '10px'}}>
+                      <h4 className="text-start">主人: 廖先生</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                      >
                         雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
                       </h6>
                     </div>
@@ -397,55 +462,76 @@ export default function PetInsurance() {
                 </div>
 
                 <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                      <img src="/pi-pic/customer-feedback02.jpg" alt="米亞(虎斑貓)" className={styles['pet-image']} />
+                      <img
+                        src="/pi-pic/customer-feedback02.jpg"
+                        alt="米亞(虎斑貓)"
+                        className={styles['pet-image']}
+                      />
                       <div className={styles.feedbackCardContent}>
                         <h4>米亞(虎斑貓) 3歲</h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 高小姐
-                      </h4>
-                      <h6 className="text-start"style={{paddingRight:'10px', paddingLeft: '10px'}}>
+                      <h4 className="text-start">主人: 高小姐</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                      >
                         我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
                       </h6>
                     </div>
                   </div>
                 </div>
                 <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                      <img src="/pi-pic/customer-feedback04.jpg" alt="米亞(虎斑貓)" className={styles['pet-image']} />
+                      <img
+                        src="/pi-pic/customer-feedback04.jpg"
+                        alt="米亞(虎斑貓)"
+                        className={styles['pet-image']}
+                      />
                       <div className={styles.feedbackCardContent}>
                         <h4>阿卡斐雅(馬爾濟斯) 3歲</h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 高小姐
-                      </h4>
-                      <h6 className="text-start"style={{paddingRight:'10px', paddingLeft: '10px'}}>
-                      買了寵物保險後，我再也不用擔心狗狗突發的醫療費用，讓牠得到最好的照顧，真的很安心。
+                      <h4 className="text-start">主人: 高小姐</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                      >
+                        買了寵物保險後，我再也不用擔心狗狗突發的醫療費用，讓牠得到最好的照顧，真的很安心。
                       </h6>
                     </div>
                   </div>
                 </div>
                 <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
-                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                  <div
+                    className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}
+                  >
                     <div className={styles.feedbackCardFront}>
-                      <img src="/pi-pic/customer-feedback03.png" alt="米亞(虎斑貓)" className={styles['pet-image']} />
+                      <img
+                        src="/pi-pic/customer-feedback03.png"
+                        alt="米亞(虎斑貓)"
+                        className={styles['pet-image']}
+                      />
                       <div className={styles.feedbackCardContent}>
                         <h4>咪咪(英國短毛貓) 6個月</h4>
                       </div>
                     </div>
                     <div className={styles.feedbackCardBack}>
-                    <h4 className="text-start">
-                        主人: 蔡先生
-                      </h4>
-                      <h6 className="text-start"style={{paddingRight:'10px', paddingLeft: '10px'}}>
-                      有了寵物保險，每次帶貓咪去看病都不再擔心費用，讓我更專注於牠的健康，真是個明智的投資。
+                      <h4 className="text-start">主人: 蔡先生</h4>
+                      <h6
+                        className="text-start"
+                        style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                      >
+                        有了寵物保險，每次帶貓咪去看病都不再擔心費用，讓我更專注於牠的健康，真是個明智的投資。
                       </h6>
                     </div>
                   </div>
@@ -454,13 +540,14 @@ export default function PetInsurance() {
             </div>
             {/* 手機版 end */}
           </div>
-
         </div>
 
         {/* section 5 end */}
         {/* section 6 常見問題 start */}
-        <div className={`col-12 ${styles.allFont}`}
-            style={{marginTop: '-50px'}}>
+        <div
+          className={`col-12 ${styles.allFont}`}
+          style={{ marginTop: '-50px' }}
+        >
           <img
             className="img-fluid w-100"
             loading="lazy"
@@ -468,19 +555,20 @@ export default function PetInsurance() {
             alt=""
           />
         </div>
-        <div className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont} ${styles.questionHeight}`}>
+        <div
+          className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont} ${styles.questionHeight}`}
+        >
           <div className="row d-flex justify-content-center">
             <div className="col-12 d-flex justify-content-center">
               <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/cat-paw.png"
-                  alt=""
-                />
+                className="img-fluid"
+                loading="lazy"
+                src="/pi-pic/cat-paw.png"
+                alt=""
+              />
               <h2
                 className={`ms-2 d-flex justify-content-center align-items-center ${styles['text-color']}`}
               >
-                
                 寵物保險常見問題
               </h2>
             </div>
@@ -676,6 +764,7 @@ export default function PetInsurance() {
         </div>
         {/* section 6 end */}
       </Layout>
+      {/* </MasonryResponsive> */}
     </>
   )
 }

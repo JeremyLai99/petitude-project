@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 
+// import dynamic from 'next/dynamic'
+
+// // 將 MasonryResponsive 僅在客戶端加載
+// const MasonryResponsive = dynamic(() => import('react-responsive-masonry'), {
+//   ssr: false,
+// })
+
 const slideAnimation = keyframes`
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -68,9 +75,11 @@ const ImageCarousel = () => {
   }
 
   return (
+    // <MasonryResponsive>
     <CarouselContainer>
       <ImageStrip ref={stripRef}>{renderImages()}</ImageStrip>
     </CarouselContainer>
+    // </MasonryResponsive>
   )
 }
 

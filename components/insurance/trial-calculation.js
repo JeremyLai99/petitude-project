@@ -7,6 +7,13 @@ import { useAuth } from '@/contexts/member/auth-context'
 import { useRouter } from 'next/router'
 import LoginModal from '@/components/member/LoginModal'
 
+// import dynamic from 'next/dynamic'
+
+// // 將 MasonryResponsive 僅在客戶端加載
+// const MasonryResponsive = dynamic(() => import('react-responsive-masonry'), {
+//   ssr: false,
+// })
+
 export default function TrialCalculation() {
   // 確認是否有登入
   const { auth } = useAuth()
@@ -140,6 +147,7 @@ export default function TrialCalculation() {
 
   return (
     <>
+      {/* <MasonryResponsive> */}
       <div className={`container-fluid ${styles.allFont}`}>
         <div
           className="row justify-content-center"
@@ -777,6 +785,7 @@ export default function TrialCalculation() {
         </div>
       </div>
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+      {/* </MasonryResponsive> */}
     </>
   )
 }

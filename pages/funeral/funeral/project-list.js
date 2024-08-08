@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 
-export default function ProjectList() {
+export default function ProjectList(project) {
   const addToCart = (pid) => {
     const cartKey = 'project-cart'
 

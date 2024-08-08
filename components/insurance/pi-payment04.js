@@ -47,30 +47,6 @@ export default function PiPayment04() {
           } else {
             console.error('找不到支付表單')
           }
-
-          // 方式二
-          //         // 創建一個臨時的iframe
-          //         const iframe = document.createElement('iframe')
-          //         iframe.style.display = 'none'
-          //         document.body.appendChild(iframe)
-
-          //         // 將HTML內容寫入iframe
-          //         iframe.contentWindow.document.open()
-          //         iframe.contentWindow.document.write(ecpayResponse.htmlContent)
-          //         iframe.contentWindow.document.close()
-
-          //         // 提交表單
-          //         const form = iframe.contentWindow.document.querySelector('form')
-          //         if (form) {
-          //           form.submit()
-          //           // 再把訂單號碼加入localstorage
-          //           localStorage.setItem(
-          //             'OrderId',
-          //             JSON.stringify({ OrderId: OrderId }),
-          //           )
-          //         } else {
-          //           console.error('找不到支付表單')
-          //         }
         } else {
           console.error('無效的回應格式')
         }
@@ -82,34 +58,6 @@ export default function PiPayment04() {
       // 處理錯誤
     }
   }
-
-  // 嘗試解決方法之一
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-
-  //   try {
-  //     if (OrderId) {
-  //       const response = await fetch(
-  //         `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price })}`,
-  //       )
-
-  //       const ecpayResponse = await response.json()
-
-  //       if (ecpayResponse.htmlContent) {
-  //         // 創建一個新的窗口或標籤頁來加載和提交表單
-  //         const newWindow = window.open('', '_blank')
-  //         newWindow.document.write(ecpayResponse.htmlContent)
-  //         newWindow.document.close()
-  //       } else {
-  //         console.error('無效的回應格式')
-  //       }
-  //     } else {
-  //       console.error('新增資料庫失敗')
-  //     }
-  //   } catch (error) {
-  //     console.error('發生錯誤:', error)
-  //   }
-  // }
 
   // 從後端抓訂單id跟保險價格
   useEffect(() => {

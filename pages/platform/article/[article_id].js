@@ -26,6 +26,13 @@ import ReMessage from '@/components/platform/re_message/[message_id]'
 import CartIcon from '@/components/estore/carticon'
 import MobileGotop from '@/components/platform/mobile-gotop'
 
+import dynamic from 'next/dynamic'
+
+// 將 MasonryResponsive 僅在客戶端加載
+const MasonryResponsive = dynamic(() => import('react-responsive-masonry'), {
+  ssr: false,
+})
+
 export default function ArticleId() {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
@@ -337,256 +344,260 @@ export default function ArticleId() {
 
   return (
     <>
-      <section className={`${styles.BgImg} ${styles.AllFont}`}>
-        <Layout title={articleData.article_name} pageName="platform">
-          <div className="container mb-5">
-            <div className="row">
-              <SideBarPc onSearch={handleSearch} />
-              <div className="col-xl-9 col-lg-12">
-                <div
-                  className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-3`}
-                >
-                  <div className="row">
-                    <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
-                      {/* 返回按鈕 */}
-                      <div
-                        style={{
-                          width: '30px',
-                          height: '30px',
-                          top: '240px',
-                          left: '12px',
-                        }}
-                        className="border rounded bg-white d-flex justify-content-center align-items-center position-fixed d-xl-none d-xxl-block d-xxl-none"
-                      >
-                        <a className={`${styles.AReset}`} href="../article">
-                          <BsChevronLeft></BsChevronLeft>
-                        </a>
-                      </div>
+      <MasonryResponsive>
+        <section className={`${styles.BgImg} ${styles.AllFont}`}>
+          <Layout title={articleData.article_name} pageName="platform">
+            <div className="container mb-5">
+              <div className="row">
+                <SideBarPc onSearch={handleSearch} />
+                <div className="col-xl-9 col-lg-12">
+                  <div
+                    className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-3`}
+                  >
+                    <div className="row">
+                      <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
+                        {/* 返回按鈕 */}
+                        <div
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                            top: '240px',
+                            left: '12px',
+                          }}
+                          className="border rounded bg-white d-flex justify-content-center align-items-center position-fixed d-xl-none d-xxl-block d-xxl-none"
+                        >
+                          <a className={`${styles.AReset}`} href="../article">
+                            <BsChevronLeft></BsChevronLeft>
+                          </a>
+                        </div>
 
-                      {/* 文章內容 */}
-                      <div>
-                        <section>
-                          <div className="container">
-                            <div className="row d-flex justify-content-center">
-                              <div className="col-lg-11 border-bottom border-secondary mt-3 mx-2">
-                                <h2 className="ms-2">
-                                  {articleData.article_name}
-                                </h2>
-                                <div className="d-flex me-3 ms-2">
-                                  <div className="m-2 d-flex flex-grow-1 word-wrap">
-                                    <a
-                                      className={`${styles.AReset}`}
-                                      href={`http://localhost:3000/platform/class/${articleData.fk_class_id}`}
-                                    >
-                                      <p
-                                        style={{
-                                          color: classColor,
-                                          border: `1px solid ${classColor}`,
-                                        }}
-                                        className="px-1 rounded-3 me-2 word-wrap"
+                        {/* 文章內容 */}
+                        <div>
+                          <section>
+                            <div className="container">
+                              <div className="row d-flex justify-content-center">
+                                <div className="col-lg-11 border-bottom border-secondary mt-3 mx-2">
+                                  <h2 className="ms-2">
+                                    {articleData.article_name}
+                                  </h2>
+                                  <div className="d-flex me-3 ms-2">
+                                    <div className="m-2 d-flex flex-grow-1 word-wrap">
+                                      <a
+                                        className={`${styles.AReset}`}
+                                        href={`http://localhost:3000/platform/class/${articleData.fk_class_id}`}
                                       >
-                                        {articleData.class_name}
+                                        <p
+                                          style={{
+                                            color: classColor,
+                                            border: `1px solid ${classColor}`,
+                                          }}
+                                          className="px-1 rounded-3 me-2 word-wrap"
+                                        >
+                                          {articleData.class_name}
+                                        </p>
+                                      </a>
+                                      <p
+                                        className={`${styles.LightGray} me-1 word-wrap`}
+                                      >
+                                        {articleData.article_date}
                                       </p>
-                                    </a>
-                                    <p
-                                      className={`${styles.LightGray} me-1 word-wrap`}
-                                    >
-                                      {articleData.article_date}
-                                    </p>
+                                    </div>
+                                    {auth.b2c_id === articleData.fk_b2c_id && (
+                                      <button
+                                        className={`${styles.BtnReset} ${styles.LightGray} mb-3`}
+                                        onClick={handleEditClick}
+                                      >
+                                        <BsFillPencilFill
+                                          className={`mb-1`}
+                                        ></BsFillPencilFill>
+                                        編輯
+                                      </button>
+                                    )}
                                   </div>
-                                  {auth.b2c_id === articleData.fk_b2c_id && (
-                                    <button
-                                      className={`${styles.BtnReset} ${styles.LightGray} mb-3`}
-                                      onClick={handleEditClick}
-                                    >
-                                      <BsFillPencilFill
-                                        className={`mb-1`}
-                                      ></BsFillPencilFill>
-                                      編輯
-                                    </button>
-                                  )}
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          {/* 主內容 */}
+                            {/* 主內容 */}
+                            <div
+                              style={{ minHeight: '40vh' }}
+                              className="mx-4 mt-4"
+                            >
+                              <div className="d-flex justify-content-center">
+                                <div
+                                  className="d-flex justify-content-center align-items-center"
+                                  style={{ width: '100%' }}
+                                >
+                                  <pre
+                                    style={{
+                                      whiteSpace: 'pre-wrap',
+                                      wordWrap: 'break-word',
+                                      overflowWrap: 'break-word',
+                                      color: '#482806',
+                                    }}
+                                    className={`col-lg-10 text-start lh-lg h6 text  ${styles.AllFont}`}
+                                  >
+                                    {articleData.article_content}
+                                  </pre>
+                                </div>
+                              </div>
+                              <div className="d-flex justify-content-center mt-3 mb-4">
+                                {imageLoaded ? (
+                                  <img
+                                    className={`w-75`}
+                                    src={`http://localhost:3001/uploads/${articleData.article_img}`}
+                                    onError={() => setImageLoaded(false)}
+                                  />
+                                ) : null}
+                              </div>
+                            </div>
+
+                            {/* 功能連結 */}
+                            <div className="container">
+                              <div className="row d-flex justify-content-center">
+                                <div className=" col-lg-11 border-bottom border-secondary d-flex justify-content-around pb-4 mb-3">
+                                  <button
+                                    className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover} ${isFavorite ? styles.FavSet : ''} me-4`}
+                                    onClick={handleFavoriteClick}
+                                  >
+                                    <BsBookmarkFill
+                                      className={`mb-1`}
+                                    ></BsBookmarkFill>
+                                    收藏
+                                  </button>
+                                  <button
+                                    className={`${styles.BtnReset} ${styles.LightGray} ${styles.ShareHover} ms-4`}
+                                  >
+                                    <BsFillShareFill
+                                      className={`mb-1`}
+                                    ></BsFillShareFill>
+                                    分享
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+
+                          {/* 留言區塊 */}
+
                           <div
-                            style={{ minHeight: '40vh' }}
-                            className="mx-4 mt-4"
+                            style={{ minHeight: '50vh' }}
+                            className="container"
                           >
-                            <div className="d-flex justify-content-center">
-                              <div
-                                className="d-flex justify-content-center align-items-center"
-                                style={{ width: '100%' }}
-                              >
-                                <pre
-                                  style={{
-                                    whiteSpace: 'pre-wrap',
-                                    wordWrap: 'break-word',
-                                    overflowWrap: 'break-word',
-                                    color: '#482806',
-                                  }}
-                                  className={`col-lg-10 text-start lh-lg h6 text  ${styles.AllFont}`}
-                                >
-                                  {articleData.article_content}
-                                </pre>
-                              </div>
-                            </div>
-                            <div className="d-flex justify-content-center mt-3 mb-4">
-                              {imageLoaded ? (
-                                <img
-                                  className={`w-75`}
-                                  src={`http://localhost:3001/uploads/${articleData.article_img}`}
-                                  onError={() => setImageLoaded(false)}
-                                />
-                              ) : null}
-                            </div>
-                          </div>
-
-                          {/* 功能連結 */}
-                          <div className="container">
                             <div className="row d-flex justify-content-center">
-                              <div className=" col-lg-11 border-bottom border-secondary d-flex justify-content-around pb-4 mb-3">
-                                <button
-                                  className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover} ${isFavorite ? styles.FavSet : ''} me-4`}
-                                  onClick={handleFavoriteClick}
-                                >
-                                  <BsBookmarkFill
-                                    className={`mb-1`}
-                                  ></BsBookmarkFill>
-                                  收藏
-                                </button>
-                                <button
-                                  className={`${styles.BtnReset} ${styles.LightGray} ${styles.ShareHover} ms-4`}
-                                >
-                                  <BsFillShareFill
-                                    className={`mb-1`}
-                                  ></BsFillShareFill>
-                                  分享
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </section>
-
-                        {/* 留言區塊 */}
-
-                        <div
-                          style={{ minHeight: '50vh' }}
-                          className="container"
-                        >
-                          <div className="row d-flex justify-content-center">
-                            <div className="col-lg-10">
-                              <section className="w-100">
-                                {messages.length > 0 ? (
-                                  messages.map((message) => {
-                                    const dateFormat = moment(
-                                      message.message_date,
-                                    ).format('YYYY-MM-DD HH:MM')
-                                    return (
-                                      <div
-                                        className={`${styles.MessHover}`}
-                                        key={message.message_id}
-                                      >
-                                        <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
-                                          <div className="me-2">
-                                            <img
-                                              src="/forum-pic/avatar.png"
-                                              alt=""
-                                            />
-                                          </div>
-                                          <div className="flex-grow-1 me-2 pb-3">
-                                            <p
-                                              style={{ color: '#F4BC7A' }}
-                                              className="fw-bold"
-                                            >
-                                              {message.b2c_name}
-                                            </p>
-                                            <p>{message.message_content}</p>
-                                            <div className="d-flex ">
-                                              <span className="me-4 text-black-50">
-                                                {dateFormat}
-                                              </span>
-                                              <button
-                                                className={`${styles.BtnReset} ${styles.LightGray}`}
-                                                onClick={() =>
-                                                  handleReplyClick(
-                                                    message.message_id,
-                                                  )
-                                                }
-                                              >
-                                                回覆
-                                              </button>
+                              <div className="col-lg-10">
+                                <section className="w-100">
+                                  {messages.length > 0 ? (
+                                    messages.map((message) => {
+                                      const dateFormat = moment(
+                                        message.message_date,
+                                      ).format('YYYY-MM-DD HH:MM')
+                                      return (
+                                        <div
+                                          className={`${styles.MessHover}`}
+                                          key={message.message_id}
+                                        >
+                                          <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
+                                            <div className="me-2">
+                                              <img
+                                                src="/forum-pic/avatar.png"
+                                                alt=""
+                                              />
                                             </div>
-                                            {replyToMessageId ===
-                                              message.message_id && (
-                                              <form
-                                                onSubmit={handleReMessageSubmit}
-                                                className="pt-3 pb-1 d-flex"
+                                            <div className="flex-grow-1 me-2 pb-3">
+                                              <p
+                                                style={{ color: '#F4BC7A' }}
+                                                className="fw-bold"
                                               >
-                                                <input
-                                                  style={{ height: '40px' }}
-                                                  className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
-                                                  type="text"
-                                                  placeholder="回覆......"
-                                                  value={reMessInput}
-                                                  onChange={
-                                                    handleReMessInputChange
-                                                  }
-                                                />
+                                                {message.b2c_name}
+                                              </p>
+                                              <p>{message.message_content}</p>
+                                              <div className="d-flex ">
+                                                <span className="me-4 text-black-50">
+                                                  {dateFormat}
+                                                </span>
                                                 <button
-                                                  style={{ height: '40px' }}
-                                                  className={`${styles.BorderStartDel} card border-3 border-start-0`}
-                                                  type="submit"
+                                                  className={`${styles.BtnReset} ${styles.LightGray}`}
+                                                  onClick={() =>
+                                                    handleReplyClick(
+                                                      message.message_id,
+                                                    )
+                                                  }
                                                 >
-                                                  <IoSend className="mt-2 me-1 text-black-50" />
+                                                  回覆
                                                 </button>
-                                              </form>
-                                            )}
-                                            {/* 回覆留言區塊 */}
+                                              </div>
+                                              {replyToMessageId ===
+                                                message.message_id && (
+                                                <form
+                                                  onSubmit={
+                                                    handleReMessageSubmit
+                                                  }
+                                                  className="pt-3 pb-1 d-flex"
+                                                >
+                                                  <input
+                                                    style={{ height: '40px' }}
+                                                    className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
+                                                    type="text"
+                                                    placeholder="回覆......"
+                                                    value={reMessInput}
+                                                    onChange={
+                                                      handleReMessInputChange
+                                                    }
+                                                  />
+                                                  <button
+                                                    style={{ height: '40px' }}
+                                                    className={`${styles.BorderStartDel} card border-3 border-start-0`}
+                                                    type="submit"
+                                                  >
+                                                    <IoSend className="mt-2 me-1 text-black-50" />
+                                                  </button>
+                                                </form>
+                                              )}
+                                              {/* 回覆留言區塊 */}
 
-                                            <ReMessage
-                                              message_id={message.message_id}
-                                            />
+                                              <ReMessage
+                                                message_id={message.message_id}
+                                              />
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    )
-                                  })
-                                ) : (
-                                  <p className="text-center mt-2">
-                                    目前還沒有留言，成為第一個留言的人吧！
-                                  </p>
-                                )}
-                              </section>
+                                      )
+                                    })
+                                  ) : (
+                                    <p className="text-center mt-2">
+                                      目前還沒有留言，成為第一個留言的人吧！
+                                    </p>
+                                  )}
+                                </section>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* 回覆留言區塊 */}
-                        <div className="position-sticky bottom-0">
-                          <form onSubmit={handleReplySubmit}>
-                            <div className="p-3 d-flex justify-content-center">
-                              <input
-                                style={{ height: '45px' }}
-                                className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
-                                type="text"
-                                placeholder="留言......"
-                                value={replyInput}
-                                onChange={handleReplyInputChange}
-                              />
-                              <button
-                                style={{ height: '45px' }}
-                                className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
-                                type="submit"
-                              >
-                                <IoSend
-                                  style={{ marginTop: 10, color: '#4CB1C8' }}
-                                  className="me-1"
+                          {/* 回覆留言區塊 */}
+                          <div className="position-sticky bottom-0">
+                            <form onSubmit={handleReplySubmit}>
+                              <div className="p-3 d-flex justify-content-center">
+                                <input
+                                  style={{ height: '45px' }}
+                                  className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
+                                  type="text"
+                                  placeholder="留言......"
+                                  value={replyInput}
+                                  onChange={handleReplyInputChange}
                                 />
-                              </button>
-                            </div>
-                          </form>
+                                <button
+                                  style={{ height: '45px' }}
+                                  className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
+                                  type="submit"
+                                >
+                                  <IoSend
+                                    style={{ marginTop: 10, color: '#4CB1C8' }}
+                                    className="me-1"
+                                  />
+                                </button>
+                              </div>
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -594,12 +605,12 @@ export default function ArticleId() {
                 </div>
               </div>
             </div>
-          </div>
-          <MobileGotop />
-          <CartIcon />
-        </Layout>
-      </section>
-      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+            <MobileGotop />
+            <CartIcon />
+          </Layout>
+        </section>
+        {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+      </MasonryResponsive>
     </>
   )
 }

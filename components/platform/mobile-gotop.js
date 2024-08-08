@@ -1,5 +1,12 @@
 import React from 'react'
 
+import dynamic from 'next/dynamic'
+
+// 將 MasonryResponsive 僅在客戶端加載
+const MasonryResponsive = dynamic(() => import('react-responsive-masonry'), {
+  ssr: false,
+})
+
 export default function MobileGotop() {
   const scrollToTop = () => {
     window.scrollTo({
@@ -9,55 +16,57 @@ export default function MobileGotop() {
   }
   return (
     <>
-      <div className="d-flex d-xl-none d-xxl-block d-xxl-none">
-        <button
-          onClick={scrollToTop}
-          style={{
-            position: 'fixed',
-            bottom: '2rem',
-            right: '1.2rem',
-            backgroundColor: 'transparent',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '50%',
-            width: '50px',
-            height: '50px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            padding: '0',
-          }}
-        >
-          <div
+      <MasonryResponsive>
+        <div className="d-flex d-xl-none d-xxl-block d-xxl-none">
+          <button
+            onClick={scrollToTop}
             style={{
-              backgroundColor: '#F5D553',
+              position: 'fixed',
+              bottom: '2rem',
+              right: '1.2rem',
+              backgroundColor: 'transparent',
+              color: '#fff',
+              border: 'none',
               borderRadius: '50%',
               width: '50px',
               height: '50px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              padding: '0',
             }}
           >
-            <img
-              src="/funeral/image_44.png"
-              alt="Scroll to top"
+            <div
               style={{
-                width: '45px',
-                height: '45px',
-                padding: '3px',
-                marginLeft: '2px',
-                transform: 'rotate(-20deg)',
-                color: '#F5D553',
+                backgroundColor: '#F5D553',
+                borderRadius: '50%',
+                width: '50px',
+                height: '50px',
               }}
-            />
-          </div>
-          <span
-            style={{ fontSize: '14px', color: '#bbbbbb', fontWeight: '900' }}
-          >
-            Top
-          </span>
-        </button>
-      </div>
+            >
+              <img
+                src="/funeral/image_44.png"
+                alt="Scroll to top"
+                style={{
+                  width: '45px',
+                  height: '45px',
+                  padding: '3px',
+                  marginLeft: '2px',
+                  transform: 'rotate(-20deg)',
+                  color: '#F5D553',
+                }}
+              />
+            </div>
+            <span
+              style={{ fontSize: '14px', color: '#bbbbbb', fontWeight: '900' }}
+            >
+              Top
+            </span>
+          </button>
+        </div>
+      </MasonryResponsive>
     </>
   )
 }

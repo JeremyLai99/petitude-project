@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react'
 import Layout from '@/components/layout/layout'
-import { useRouter } from 'next/router'
 import styles from '@/styles/estore/bookingList.module.css'
 import axios from 'axios'
 import swal from 'sweetalert2'
 import { useCart } from '@/contexts/estore/CartContext'
 import { useAuth } from '@/contexts/member/auth-context'
 import { z } from 'zod'
-import { RequestList } from '@/configs/estore/api-path'
 
 export default function BookingList() {
   const { auth } = useAuth()
-  const router = useRouter()
   const [selectedBillMethod, setSelectedBillMethod] = useState('')
   const [cartItems, setCartItems] = useState([])
   const [counties, setCounties] = useState([])
@@ -57,41 +54,41 @@ export default function BookingList() {
       setCartItems(JSON.parse(storedCart))
     }
 
+    const fetchUserData = async (b2c_id) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/product/user/${b2c_id}`,
+        )
+        if (response.data.success) {
+          const userData = response.data.data
+          setFormData((prevData) => ({
+            ...prevData,
+            buyerName: userData.b2c_name || '',
+            mobile: userData.b2c_mobile || '',
+            countyId: userData.fk_county_id || '',
+            cityId: userData.fk_city_id || '',
+            address: userData.b2c_address || '',
+          }))
+
+          // 更新選中的縣市和城市
+          setSelectedCounty(userData.fk_county_id || '')
+          setSelectedCity(userData.fk_city_id || '')
+
+          // 如果有縣市 ID,獲取對應的城市數據
+          if (userData.fk_county_id) {
+            fetchCities(userData.fk_county_id)
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
+
     // 從 auth 獲取 b2c_id 並獲取用戶資料
     if (auth?.b2c_id) {
       fetchUserData(auth.b2c_id)
     }
   }, [auth])
-
-  const fetchUserData = async (b2c_id) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/product/user/${b2c_id}`,
-      )
-      if (response.data.success) {
-        const userData = response.data.data
-        setFormData((prevData) => ({
-          ...prevData,
-          buyerName: userData.b2c_name || '',
-          mobile: userData.b2c_mobile || '',
-          countyId: userData.fk_county_id || '',
-          cityId: userData.fk_city_id || '',
-          address: userData.b2c_address || '',
-        }))
-
-        // 更新選中的縣市和城市
-        setSelectedCounty(userData.fk_county_id || '')
-        setSelectedCity(userData.fk_city_id || '')
-
-        // 如果有縣市 ID,獲取對應的城市數據
-        if (userData.fk_county_id) {
-          fetchCities(userData.fk_county_id)
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error)
-    }
-  }
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.product_price * item.qty,

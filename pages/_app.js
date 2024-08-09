@@ -1,9 +1,7 @@
 // import "@/styles/globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect } from 'react'
-import AuthContext, {
-  AuthContextProvider,
-} from '@/contexts/member/auth-context'
+import { AuthContextProvider } from '@/contexts/member/auth-context'
 import { CartProvider } from '@/contexts/estore/CartContext'
 import { CartProvider2 } from '@/contexts/funeral/CartContext1'
 
